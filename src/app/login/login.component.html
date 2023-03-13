@@ -1,0 +1,29 @@
+<div *ngIf="!loginStatus">
+<p>login works!</p>
+<from [formGroup]="LoginForm" (ngSubmit)="login()">
+    <input type="text" name="name" placeholder="User Name" formControlName="name">
+    <div *ngIf="LoginForm.controls['name'].hasError('required')&&LoginForm.controls['name'].touched">
+        name required
+    </div><br>
+    <input type="password" name="password" placeholder="password" formControlName="password">
+    <div *ngIf="LoginForm.controls['password'].hasError('required')&&LoginForm.controls['password'].touched">
+        password required
+    </div><br>
+    <input type="submit" [disabled]="LoginForm.invalid" value="submit" (click)="login()">
+</from>
+</div>
+<div *ngIf="loginStatus">
+    <ul *ngFor="let fruit of fruits">
+        <li>{{fruit.name}}<br>{{fruit.quantity}}<br>
+            <div *ngIf="permission=='all'">
+                <button (click)="cartItem(true,fruit.name)">+</button>&nbsp;&nbsp;
+                <button (click)="cartItem(false,fruit.name)">-</button>
+            </div>
+        </li>
+    </ul>
+</div>
+<div>
+    <div *ngFor="let fruit of cartItems">
+        {{fruit.name}}
+    </div>
+</div>
